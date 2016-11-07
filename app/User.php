@@ -2,38 +2,40 @@
 
 namespace App;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
-class User extends Model implements AuthenticatableContract,
-                                    AuthorizableContract,
-                                    CanResetPasswordContract
+
+class User extends Authenticatable
 {
-    use Authenticatable, Authorizable, CanResetPassword;
+    use Notifiable;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $connection = 'nmbs_mysql';
+    protected $table = 'Staff';
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
-    protected $hidden = ['password', 'remember_token'];
+    protected $primaryKey = 'StaffID';
+    public $timestamps = false;
+
+    protected $hidden = ['AddressID', 'StationID', 'Password', 'remember_token', 'Api_token'];
+    protected $guarded = ['StaffID'];
+    protected $fillable = ['FirstName', 'LastName', 'UserName', 'Password', 'Rights', 'BirthDate', 'Email', 'Api_token'];
+
+    protected $appends = ['Address', 'Station'];
+
+    public function getAuthPassword()
+    {
+        return $this->Password;
+    }
+
+    public function getAddressAttribute()
+    {
+        return Address::find($this->AddressID);
+    }
+
+    public function getStationAttribute()
+    {
+        return Address::find($this->StationID);
+    }
 }
