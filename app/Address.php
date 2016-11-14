@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
-    protected $connection = 'nmbs_mysql';
     protected $table = 'Address';
 
     protected $primaryKey = 'AddressID';

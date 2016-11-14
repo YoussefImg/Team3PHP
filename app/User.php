@@ -11,8 +11,6 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-
-    protected $connection = 'nmbs_mysql';
     protected $table = 'Staff';
 
     protected $primaryKey = 'StaffID';
@@ -27,6 +25,11 @@ class User extends Authenticatable
     public function getAuthPassword()
     {
         return $this->Password;
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->UserName;
     }
 
     public function getAddressAttribute()

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class LostObject extends Model
 {
-    protected $connection = 'nmbs_mysql';
     protected $table = 'LostObject';
 
     protected $primaryKey = 'ObjectID';

@@ -3,11 +3,14 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\Response;
+use App\Traits\ReturnTrait;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    use ReturnTrait;
     /**
      * A list of the exception types that should not be reported.
      *
@@ -60,6 +63,10 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
+        if($request->is('api/*'))
+            return $this->beautifyReturn(401);
+
         return redirect()->guest('login');
+
     }
 }

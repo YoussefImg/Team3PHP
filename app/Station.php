@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model
 {
-    protected $connection = 'nmbs_mysql';
     protected $table = 'Station';
 
     protected $primaryKey = 'StationID';

@@ -3,40 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Address;
+use App\Traits\AddressTrait;
+use App\Traits\ReturnTrait;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
+    use AddressTrait;
+    use ReturnTrait;
+
+    protected $className = 'Address';
+
+    public function index()
+    {
+        $address = Address::all();
+
+        return response()->json($address);
+    }
+
     public function byID($id)
     {
         $address = Address::find($id);
         if (!empty($address))
             return response()->json($address);
 
-        return Response('Not Found', 404);
+        return $this->beautifyReturn(404);
     }
 
     public function create(Request $request)
     {
-        if ($request->Street
-            && $request->Number
-            && $request->City
-            && $request->ZipCode
-            && $request->Coordinates
-        ) {
-            $address = new Address();
-            $address->Street = $request->Street;
-            $address->Number = $request->Number;
-            $address->City = $request->City;
-            $address->ZipCode = $request->ZipCode;
-            $address->Coordinates = $request->Coordinates;
+        $createAddressResponse = $this->createNewAdress($request);
 
-            if ($address->save())
-                return Response('Address successfully created', 200);
-
-            return Response('Not Acceptable', 406);
+        if (is_numeric($createAddressResponse)) {
+            return $this->beautifyReturn(200, ['Extra' => 'Created', 'AddressID' => $createAddressResponse]);
+        } else {
+            return $createAddressResponse;
         }
-        return Response('Bad Request', 400);
     }
 
     public function update(Request $request, $id)
@@ -55,11 +57,11 @@ class AddressController extends Controller
                 $address->Coordinates = $request->UserName;
 
             if ($address->save())
-                return Response('Address successfully updated', 200);
+                return $this->beautifyReturn(200, ['Extra' => 'Updated']);
         } else {
-            return Response('Not Found', 404);
+            return $this->beautifyReturn(404);
         }
-        return Response('Bad Request', 400);
+        return $this->beautifyReturn(400);
     }
 
     public function delete($id)
@@ -67,10 +69,10 @@ class AddressController extends Controller
         $address = Address::find($id);
         if (!empty($address)) {
             if ($address->delete())
-                return Response('Address with id ' . $id . ' has successfully been deleted', 200);
+                return $this->beautifyReturn(200, ['Extra' => 'Deleted']);
         } else {
-            return Response('Not Found', 404);
+            return $this->beautifyReturn(404);
         }
-        return Response('Bad Request', 400);
+        return $this->beautifyReturn(400);
     }
 }

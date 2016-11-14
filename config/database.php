@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'nmbs_mysql'),
+    'default' => env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,16 +77,6 @@ return [
             'prefix' => '',
             'schema' => 'public',
             'sslmode' => 'prefer',
-        ],
-        'nmbs_mysql' => [
-            'driver'    => 'mysql',
-            'host'      => 'dtsl.ehb.be',
-            'database'  => '******',
-            'username'  => '******',
-            'password'  => '******',
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
         ],
     ],
 
