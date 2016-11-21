@@ -11,12 +11,20 @@
 |
 */
 
-//Route::group(['prefix' => '/~ludovic.marchand/DigX/SP/public'], function() {
-    Route::get('/', function () {
-        return view('temp');
-    });
+Route::get('/', 'IndexController@show');
+Route::post('/', 'IndexController@getDienstRegeling');
 
-    Auth::routes();
+Route::get('/stations', function () {
+    return view('pages.stations');
+});
 
-    Route::get('/home', 'HomeController@index');
+
+//Route::get('/', function () {
+//    return view('pages.index');
+//});
+
+
+/*Auth::routes();
+
+    Route::get('/home', 'HomeController@index');*/
 //});

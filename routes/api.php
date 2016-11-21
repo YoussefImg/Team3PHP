@@ -73,6 +73,7 @@ Route::group(['prefix' => 'route', 'middleware' => 'auth:api'], function()
 {
     Route::get('/', 'RouteController@index');
     Route::get('/{id}', 'RouteController@byID');
+    Route::get('/{departureStationID}/{arrivalStationID}/', 'RouteController@byStations');
 
     Route::post('create', 'RouteController@create');
 

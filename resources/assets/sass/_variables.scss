@@ -35,3 +35,11 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+
+//colors
+$color-search-title: #3097D1;
+$color-search-title-secundary: lighten($color-search-title, 10%);
+$color-search-info: #636b6f;
+$color-search-info-extra: lighten($color-search-info, 10%);
+$color-vertraging: #f30;

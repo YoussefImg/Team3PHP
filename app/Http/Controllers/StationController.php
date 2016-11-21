@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Station;
+use App\StationWithAddress;
 use App\Traits\ExceptionTrait;
 use App\Traits\ReturnTrait;
 use App\Traits\AddressTrait;
@@ -24,7 +25,7 @@ class StationController extends Controller
 
     public function byID($id)
     {
-        $station = Station::find($id);
+        $station = StationWithAddress::find($id);
         if (!empty($station))
             return response()->json($station);
 

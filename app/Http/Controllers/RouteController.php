@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Route;
+use App\RouteWithStation;
 use App\Traits\ExceptionTrait;
 use App\Traits\ReturnTrait;
 use Illuminate\Http\Request;
@@ -16,17 +17,32 @@ class RouteController extends Controller
 
     public function index()
     {
-        $route = Route::all();
+        $route = RouteWithStation::all();
         return response()->json($route);
     }
 
     public function byID($id)
     {
-        $route = Route::find($id);
+        $route = RouteWithStation::find($id);
         if (!empty($route))
             return response()->json($route);
 
         return $this->beautifyReturn(404);
+    }
+
+    public function byStations($departureStationID, $arrivalStationID)
+    {
+
+        $route = Route::where('ArrivalStationID', '=', $arrivalStationID)
+                        ->where('DepartureStationID', '=', $departureStationID)
+                        ->get();
+
+
+        if(!empty($route) && $route->count())
+            return response()->json($route);
+
+        return $this->beautifyReturn(404);
+
     }
 
     public function create(Request $request)
