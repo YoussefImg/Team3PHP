@@ -30,6 +30,7 @@ class UserController extends Controller
                 'StatusCode' => 200,
                 'Api_token' => Auth::user()->Api_token,
                 'StaffID' => Auth::user()->StaffID,
+                'Rights' => Auth::user()->Rights,
             ];
 
             return response()->json($result);

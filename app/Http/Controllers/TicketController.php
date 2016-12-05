@@ -38,8 +38,8 @@ class TicketController extends Controller
         ) {
             $ticket = new Ticket();
             $ticket->RouteID = $request->RouteID;
+            $ticket->TypeTicketID = $request->TypeTicketID;
             $ticket->Date = $request->Date;
-            $ticket->Price = $request->Price;
             $ticket->ValidFrom = $request->ValidFrom;
             $ticket->ValidUntil = $request->ValidUntil;
             $ticket->ComfortClass = $request->ComfortClass;
@@ -58,10 +58,10 @@ class TicketController extends Controller
         if (!empty($ticket)) {
             if ($request->RouteID)
                 $ticket->RouteID = $request->RouteID;
+            if ($request->TypeTicketID)
+                $ticket->TypeTicketID = $request->TypeTicketID;
             if ($request->Date)
                 $ticket->Date = $request->Date;
-            if ($request->Price)
-                $ticket->Price = $request->Price;
             if ($request->ValidFrom)
                 $ticket->ValidFrom = $request->ValidFrom;
             if ($request->ValidUntil)

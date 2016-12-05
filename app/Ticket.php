@@ -13,12 +13,17 @@ class Ticket extends Model
 
     protected $hidden = ['RouteID'];
     protected $guarded = ['TicketID'];
-    protected $fillable = ['RouteID', 'Date', 'Price', 'ValidFrom', 'ValidUntil', 'ComfortClass'];
+    protected $fillable = ['RouteID', 'TypeTicketID','Date', 'Price', 'ValidFrom', 'ValidUntil', 'ComfortClass'];
 
-    protected $appends = ['Route'];
+    protected $appends = ['Route', 'TypeTicketID'];
 
     public function getRouteAttribute()
     {
         return Route::find($this->RouteID);
+    }
+
+    public function getTypeTicketAttribute()
+    {
+        return TypeTicket::find($this->TypeTicketID);
     }
 }
